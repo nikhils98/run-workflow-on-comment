@@ -1,0 +1,16 @@
+name: Run tests
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  pr_commented:
+    if: ${{ github.event.issue.pull_request }}
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo A comment $COMMENT on PR $NUMBER
+        env:
+          NUMBER: ${{ github.event.issue.number }}
+          COMMENT: ${{ github.event.issue.bodyText }}
