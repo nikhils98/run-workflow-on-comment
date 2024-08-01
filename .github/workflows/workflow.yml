@@ -3,8 +3,24 @@ name: Run tests
 on: issue_comment
 
 jobs:
-  pr_commented:
-    if: ${{ github.event.issue.pull_request && contains(github.event.comment.body, '/test') }}
+  set_should_run:
+    runs-on: ubuntu-latest
+    outputs:
+      SHOULD_RUN: ${{ github.event.issue.pull_request && contains(github.event.comment.body, '/test') }}
+
+  job1:
+    needs: set_should_run
+    if: ${{ needs.set_should_run.outputs.SHOULD_RUN }}
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo A comment $COMMENT on PR $NUMBER
+        env:
+          NUMBER: ${{ github.event.issue.number }}
+          COMMENT: ${{ github.event.comment.body }}
+  job2:
+    needs: set_should_run
+    if: ${{ needs.set_should_run.outputs.SHOULD_RUN }}
     runs-on: ubuntu-latest
     steps:
       - run: |
