@@ -5,12 +5,10 @@ on:
     branches:
       - main
   issue_comment:
-  pull_request:
-    branches:
-      - main
 
 jobs:
   job1:
+    if: ${{ github.event.issue.pull_request && contains(github.event.comment.body, '/test') }}
     runs-on: ubuntu-latest
     steps:
       - run: |
@@ -19,6 +17,7 @@ jobs:
           NUMBER: ${{ github.event.issue.number }}
           COMMENT: ${{ github.event.comment.body }}
   job2:
+    if: ${{ github.event.issue.pull_request && contains(github.event.comment.body, '/test') }}
     runs-on: ubuntu-latest
     steps:
       - run: |
