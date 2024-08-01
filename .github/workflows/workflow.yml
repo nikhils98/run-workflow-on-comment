@@ -7,6 +7,8 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       SHOULD_RUN: ${{ github.event.issue.pull_request && contains(github.event.comment.body, '/test') }}
+    steps:
+      - run: echo "Done"
 
   job1:
     needs: set_should_run
