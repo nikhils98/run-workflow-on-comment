@@ -10,4 +10,4 @@ jobs:
           echo A comment $COMMENT on PR $NUMBER
         env:
           NUMBER: ${{ github.event.issue.number }}
-          COMMENT: ${{ github.event.issue.bodyText }}
+          COMMENT: ${{ github.event.comment.body }}
