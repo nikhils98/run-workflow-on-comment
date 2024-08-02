@@ -11,6 +11,7 @@ on:
 
 jobs:
   job1:
+    if: contains(github.event.label.name, 'runchecks')
     runs-on: ubuntu-latest
     steps:
       - run: |
@@ -19,6 +20,7 @@ jobs:
           NUMBER: ${{ github.event.issue.number }}
           COMMENT: ${{ github.event.comment.body }}
   job2:
+    if: contains(github.event.label.name, 'runchecks')
     runs-on: ubuntu-latest
     steps:
       - run: |
